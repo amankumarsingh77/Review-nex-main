@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Left Image, Right Text</title>
+    <style>
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff; /* Light Blue color */
+        }
+
+        .container {
+            display: flex;
+            background-color: #add8e6; /* Light Blue color for the outer container */
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .image-section {
+            flex: 1; /* Make the image section take up 50% of the container */
+            padding: 20px;
+        }
+
+        .text-section {
+            flex: 1; /* Make the text section take up 50% of the container */
+            background-color: #ffffff; /* White color for the inner container */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .image-section img {
+            max-width: 100%;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333; /* Text color */
+        }
+
+        p {
+            font-size: 16px;
+            color: #555; /* Text color */
+        }
+
+        .download-button {
+            background-color: #ff5733; /* Beautiful color for the button */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .download-button:hover {
+            background-color: #ff8c66; /* Color on hover */
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="image-section">
+            <img src="{{json_data.img_url}}" alt="Image">
+        </div>
+        <div class="text-section">
+            <h1>{{json_data.query}}</h1>
+            <p>Positive: {{ json_data.seg.pos_reviews }}</p>
+            <p>Negative: {{ json_data.seg.neg_reviews }}</p>
+            <p>Neutral: {{ json_data.seg.neu_reviews }}</p>
+            
+            <a onclick="downloadFile('{{json_data.file_url}}', '{{json_data.query}}.csv')" class="download-button">Download CSV</a>
+        </div>
+    </div>
+
+    <script>
+        async function downloadFile(url, file_name) {
+            let results = await axios({
+                url: url,
+                method: 'GET',
+                responseType: 'blob'
+            });
+            let hidden_a = document.createElement('a');
+            hidden_a.href = window.URL.createObjectURL(new Blob([results.data]));
+            hidden_a.setAttribute('download', file_name);
+            document.body.appendChild(hidden_a);
+            hidden_a.click();
+        }
+    </script>
+</body>
+</html>

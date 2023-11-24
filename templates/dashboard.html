@@ -1,0 +1,17 @@
+<ul>
+    {% for item in json_data %}
+        <li>
+            <a href="http://127.0.0.1:8000/product/{{item.item_name}}">{{ item.item_name }}</a>
+            <!-- <p>Positive: {{ item.analysied_data.pos }}</p>
+            <p>Negative: {{ item.analysied_data.neg }}</p>
+            <p>Neutral: {{ item.analysied_data.nut }}</p>
+            <p>Reviews:</p>
+            <ul>
+                {% for review in item.demo_reviews %}
+                    <li>{{ review }}</li>
+                {% endfor %}
+            </ul>
+            <img src="{{item.img_url}}"> -->
+        </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,10 @@
+fastapi
+pymongo
+bcrypt
+uvicorn
+pydantic
+asyncio
+pandas
+nltk
+boto3
+asyncpraw

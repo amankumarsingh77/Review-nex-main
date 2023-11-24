@@ -1,0 +1,6 @@
+pymongo
+bcrypt
+requests
+django
+gunicorn
+django-cors-headers
